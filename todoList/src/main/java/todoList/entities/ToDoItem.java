@@ -1,6 +1,8 @@
 package todoList.entities;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -47,6 +49,11 @@ public class ToDoItem {
 
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public String toString() {
+        DateFormat dfTo = new SimpleDateFormat("yyyy/MM/dd");
+        return String.format("ToDoItem[id=%d, description='%s', dueDate='%s']", id, description, dfTo.format(dueDate));
     }
 
 }

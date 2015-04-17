@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>To Do Item List</title>
+</head>
+<body>
+
+<p><a th:href="@{/addItem}">Add an item</a></p>
+
+<p th:if="${#lists.isEmpty(toDoItem)}">No items in your to do list!</p>
+
+<p th:if="${not #lists.isEmpty(toDoItem)}">To do list:<br/>
+<table>
+    <tr th:each="toDoItem : ${toDoItemList}">
+        <td th:text="${toDoItem.description}"></td>
+        <td th:text="${toDoItem.dueDate}"></td>
+    </tr>
+</table>
+</p>
+
+</body>
+</html>
