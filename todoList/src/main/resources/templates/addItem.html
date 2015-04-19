@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Add an item</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<form th:action="@{/addItem}" method="post">
+    <div><label> Description: <input type="text" name="description" /></label></div>
+    <div><label> Due Date (mm/dd/yyyy): <input type="text" name="dueDate" /></label></div>
+    <div><input type="submit" value="Create item"/></div>
+</form>
+
+</body>
+</html>

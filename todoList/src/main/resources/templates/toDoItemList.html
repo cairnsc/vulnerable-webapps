@@ -13,8 +13,8 @@
 <p th:if="${not #lists.isEmpty(toDoItemList)}">To do list:<br/>
 <table>
     <tr th:each="toDoItem : ${toDoItemList}">
-        <td th:text="${toDoItem.description}"></td>
-        <td th:text="${toDoItem.dueDate}"></td>
+        <td th:text="${#dates.format(toDoItem.dueDate, 'MM/dd/yyyy')}"></td>
+        <td th:utext="${toDoItem.description}"></td>
     </tr>
 </table>
 </p>
