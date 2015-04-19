@@ -11,6 +11,7 @@ import todoList.repositories.ToDoItemRepository;
 @Controller
 public class MainController {
 
+    public final static String TEMPLATE_NAME = "toDoItemList";
     private ToDoItemRepository toDoItemRepository;
 
     @Autowired
@@ -21,7 +22,7 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("toDoItemList", toDoItemRepository.findAll());
-        return "toDoItemList";
+        return TEMPLATE_NAME;
     }
 
 }

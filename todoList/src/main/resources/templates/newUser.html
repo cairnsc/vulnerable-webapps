@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>New User</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<p th:if="${not #lists.isEmpty(errorList)}">The following errors occurred:</p>
+<p th:each="errorItem : ${errorList}" th:text="${errorItem}"></p>
+
+<form th:action="@{/newUser}" method="post">
+    <div><label> Username: <input type="text" name="username" /></label></div>
+    <div><label> Password: <input type="password" name="password" /></label></div>
+    <div><input type="submit" value="Create account"/></div>
+</form>
+
+</body>
+</html>
