@@ -2,27 +2,30 @@ package todoList.controllers;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import todoList.repositories.ToDoItemRepository;
+import org.springframework.web.context.WebApplicationContext;
 
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
+@ContextConfiguration(classes = TestConfig.class)
+@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
 public class MainControllerTests {
 
-    @Mock
-    private ToDoItemRepository toDoItemRepository;
-    private MainController mainController;
+    @Autowired
+    private WebApplicationContext webApplicationContext;
     private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {
-        initMocks(this);
-        mainController = new MainController(toDoItemRepository);
-        mockMvc = MockMvcBuilders.standaloneSetup(mainController).build();
+        mockMvc = webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
