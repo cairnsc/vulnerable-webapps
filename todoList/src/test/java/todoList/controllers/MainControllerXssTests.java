@@ -24,8 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @ContextConfiguration(classes = TestConfig.class)
@@ -64,10 +62,6 @@ public class MainControllerXssTests {
         when(toDoItemRepository.findAll()).thenReturn(Collections.singletonList(toDoItem));
 
         MvcResult mvcResult = mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(model().size(1))
-                .andExpect(model().attributeExists("toDoItemList"))
-//                .andDo(print())
                 .andReturn();
 
         String content = mvcResult.getResponse().getContentAsString();
