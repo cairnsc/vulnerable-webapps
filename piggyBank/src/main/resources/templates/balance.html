@@ -1,0 +1,14 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Balance</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<p>Welcome back, <span th:text="${customer.fullName}"></span>!</p>
+<p>Your current balance is <span th:text="${customer.balanceString}"></span></p>
+<p><a href="/transfer">Transfer</a> | <a href="/logout">Log out</a></p>
+
+</body>
+</html>
