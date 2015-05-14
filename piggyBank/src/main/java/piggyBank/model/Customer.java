@@ -46,7 +46,7 @@ public class Customer {
 
     public void withdraw(Money amount) throws InvalidBalanceException {
         Money newBalance = balance.minus(amount);
-        if (newBalance.isNegativeOrZero()) {
+        if (newBalance.isNegative()) {
             throw new InvalidBalanceException("Withdrawal exceeds available funds");
         }
         balance = newBalance;
