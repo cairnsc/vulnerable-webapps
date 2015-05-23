@@ -1,7 +1,7 @@
 package todoList.controllers;
 
-import com.thoughtworks.adtd.xss.XssTest;
-import com.thoughtworks.adtd.xss.XssTestIteratorImpl;
+import com.thoughtworks.adtd.injection.xss.XssTest;
+import com.thoughtworks.adtd.injection.xss.XssTestIteratorImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
