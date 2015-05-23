@@ -13,6 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
+import todoList.adtdProxy.MockMvcAdtdWebProxy;
 import todoList.entities.ToDoItem;
 import todoList.entities.User;
 import todoList.repositories.ToDoItemRepository;
@@ -57,8 +58,7 @@ public class MainControllerXssTests {
 
     @Test
     public void shouldNotBeSusceptibleToXss() throws Exception {
-        User user = mock(User.class);
-        ToDoItem toDoItem = new ToDoItem(user, xssTest.getTestPattern(), new Date());
+        ToDoItem toDoItem = new ToDoItem(mock(User.class), xssTest.getTestPattern(), new Date());
         when(toDoItemRepository.findAll()).thenReturn(Collections.singletonList(toDoItem));
 
         MvcResult mvcResult = mockMvc.perform(get("/"))
@@ -66,6 +66,20 @@ public class MainControllerXssTests {
 
         String content = mvcResult.getResponse().getContentAsString();
         assertThat(xssTest.matches(content)).isFalse();
+    }
+
+    @Test
+    public void shouldNotBeSusceptibleToXssWhenUsingProxy() throws Exception {
+        ToDoItem toDoItem = new ToDoItem(mock(User.class), xssTest.getTestPattern(), new Date());
+        when(toDoItemRepository.findAll()).thenReturn(Collections.singletonList(toDoItem));
+        MockMvcAdtdWebProxy proxy = new MockMvcAdtdWebProxy(mockMvc);
+
+        xssTest.prepare()
+                .method("GET")
+                .uri("/")
+                .execute(proxy);
+
+        xssTest.assertResponse();
     }
 
 }
