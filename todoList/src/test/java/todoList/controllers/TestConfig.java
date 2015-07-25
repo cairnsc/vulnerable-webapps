@@ -7,19 +7,37 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import todoList.repositories.ToDoItemRepository;
+import todoList.repositories.UserRepository;
+import todoList.services.CustomUserDetailsService;
 
 import static org.mockito.Mockito.mock;
 
 @Configuration
 public class TestConfig {
+
     @Bean
     public MainController mainController() {
         return new MainController(toDoItemRepository());
     }
 
     @Bean
+    public AddItemController addItemController() {
+        return new AddItemController(toDoItemRepository(), userRepository());
+    }
+
+    @Bean
     public ToDoItemRepository toDoItemRepository() {
         return mock(ToDoItemRepository.class);
+    }
+
+    @Bean
+    public UserRepository userRepository() {
+        return mock(UserRepository.class);
+    }
+
+    @Bean
+    public CustomUserDetailsService customUserDetailsService() {
+        return mock(CustomUserDetailsService.class);
     }
 
     @Bean
@@ -35,4 +53,5 @@ public class TestConfig {
         viewResolver.setTemplateEngine(engine);
         return viewResolver;
     }
+
 }

@@ -17,6 +17,11 @@ public class MvcResultAdtdResponse implements Response {
     }
 
     @Override
+    public String getHeader(String name) {
+        return result.getResponse().getHeader(name);
+    }
+
+    @Override
     public String getBody() throws Exception {
         return result.getResponse().getContentAsString();
     }
