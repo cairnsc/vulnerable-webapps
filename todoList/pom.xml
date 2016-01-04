@@ -75,9 +75,16 @@
             <version>1.9.5</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>com.thoughtworks</groupId>
             <artifactId>adtd</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks</groupId>
+            <artifactId>adtd-springframework</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
