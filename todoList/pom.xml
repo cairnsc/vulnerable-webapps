@@ -77,15 +77,15 @@
         </dependency>
 
         <dependency>
-            <groupId>com.thoughtworks</groupId>
+            <groupId>com.thoughtworks.adtd</groupId>
             <artifactId>adtd</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.thoughtworks</groupId>
+            <groupId>com.thoughtworks.adtd</groupId>
             <artifactId>adtd-springframework</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

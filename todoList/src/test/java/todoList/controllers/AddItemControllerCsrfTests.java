@@ -2,6 +2,8 @@ package todoList.controllers;
 
 import com.thoughtworks.adtd.csrf.token.CsrfTokenTest;
 import com.thoughtworks.adtd.csrf.token.CsrfTokenTestOrchestrator;
+import com.thoughtworks.adtd.csrf.token.ResponseStatusValidator;
+import com.thoughtworks.adtd.csrf.token.ResponseValidator;
 import com.thoughtworks.adtd.http.*;
 import com.thoughtworks.adtd.springframework.SpringTestWebProxy;
 import org.junit.Before;
@@ -18,7 +20,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import todoList.config.WebSecurityConfig;
 
-import static com.thoughtworks.adtd.http.ResponseConditionFactory.status;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -48,19 +49,12 @@ public class AddItemControllerCsrfTests {
         RequestParameters requestParameters = requestInfo.getRequestParameters();
         requestParameters.setParam("description", "test");
         requestParameters.setParam("dueDate", "01/01/2015");
-        CsrfTokenTestOrchestrator orchestrator = new CsrfTokenTestOrchestrator(requestInfo, new CsrfResponseValidator(), "_csrf");
+        ResponseValidator validator = new ResponseStatusValidator(302, 403);
+        CsrfTokenTestOrchestrator orchestrator = new CsrfTokenTestOrchestrator(requestInfo, validator, "_csrf");
 
         while (orchestrator.hasNext()) {
             CsrfTokenTest csrfTest = orchestrator.next();
-
-            Request request = csrfTest.prepare();
-            if (csrfTest.isPositiveTest()) {
-                request.expect(status().is(302));
-            } else {
-                request.expect(status().is(403));
-            }
-
-            request.execute(webProxy);
+            csrfTest.prepare().execute(webProxy);
             csrfTest.assertResponse();
         }
     }
@@ -71,12 +65,5 @@ public class AddItemControllerCsrfTests {
                 .method("GET").uri("/addItem")
                 .execute(webProxy);
         return formRetrieveRequest.getForm().getRequestInfo();
-    }
-
-    private class CsrfResponseValidator implements ResponseValidator {
-        @Override
-        public boolean validate(Request request, Response response) {
-            return false;
-        }
     }
 }
